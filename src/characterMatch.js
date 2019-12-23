@@ -18,4 +18,9 @@ console.log('123 1234 12345 123456'.match(/\d{2,5}/g)) // [ '123', '1234', '1234
 console.log('<main><div>test1</div>bb<div>test2</div><main/>'.match(/<div>.*?<\/div>/g)) // [ '<div>test1</div>', '<div>test2</div>' ]
 console.log('123 1234 12345 123456'.match(/\d{2,5}?/g)) // [ '12', '12', '34', '12', '34', '12', '34', '56' ]
 
+// 多选分支
 console.log('goodbye, seishun.'.match(/good|goodbye/g))
+
+const hexRegExp = /\#[0-9a-fA-F]{6}|[0-9a-fA-F]{3}/g
+
+console.log('#ffbbad #Fc01DF #FFF #ffE skr 鸡你太美'.match(hexRegExp)) // [ '#ffbbad', '#Fc01DF', 'FFF', 'ffE' ]

@@ -153,3 +153,24 @@ const str = 'goodbye, seishun.'
 
 str.match(/good|goodbye/g) // good
 ```
+
+## 训练营
+
+### 匹配 Hex 色值
+
+下面拆解十六进制颜色:
+
+- 开头是 `#`
+
+- 后面可以是 3 位, 也可以是 6 位
+
+- 每位字符可以是 0-9, a-f 或 A-F
+
+```js
+// 注意多选分支是惰性匹配
+// 所以要把匹配长度多的放到前面来
+// 因此 [0-9a-fA-F]{6} 要先于 [0-9a-fA-F]{3}
+const hexRegExp = /\#[0-9a-fA-F]{6}|[0-9a-fA-F]{3}/g
+
+'#ffbbad #Fc01DF #FFF #ffE skr 鸡你太美'.match(hexRegExp) // [ '#ffbbad', '#Fc01DF', 'FFF', 'ffE' ]
+```
