@@ -13,11 +13,9 @@
 ![横向匹配](../images/横向匹配.jpg)
 
 ```js
-const regex = /ab{1,4}c/g
-
 const str = 'abc abbc abbbc abbbbc abbbbbc'
 
-str.match(regex) // [ 'abc', 'abbc', 'abbbc', 'abbbbc' ]
+str.match(/ab{1,4}c/g) // [ 'abc', 'abbc', 'abbbc', 'abbbbc' ]
 ```
 
 > TIPS
@@ -31,11 +29,9 @@ str.match(regex) // [ 'abc', 'abbc', 'abbbc', 'abbbbc' ]
 ![纵向匹配](../images/纵向匹配.jpg)
 
 ```js
-const regex = /a[123]c/g
-
 const str = 'a1c a2c a3c a4c'
 
-str.match(regex) // [ 'a1c', 'a2c', 'a3c' ]
+str.match(/a[123]c/g) // [ 'a1c', 'a2c', 'a3c' ]
 ```
 
 ## 字符组
@@ -72,11 +68,9 @@ const regexp = /[ae-]/
 即匹配除字符组以外的字符, 如 `/A[^a-c]B/`, 第二个字符是除 a, b, c 以外的任何字符.
 
 ```js
-const regex = /A[^a-c]B/g
-
 const str = 'AaB AbB AcB AdB'
 
-str.match(regex) // [ 'AdB' ]
+str.match(/A[^a-c]B/g) // [ 'AdB' ]
 ```
 
 ### 内置字符组
@@ -149,3 +143,13 @@ str.match(/\d{2,5}?/g) // [ '12', '12', '34', '12', '34', '12', '34', '56' ]
 |    ??    |    ?     |
 |    +?    |    +     |
 |   \*?    |    \*    |
+
+## 多选分支
+
+通过 `|` 来分割子模式, 表示可匹配其中任意一个子模式. 注意多选分支遵从惰性模式, 下面的例子中, 匹配到 `good` 后就不再考虑后面的 `goodbye` 了.
+
+```js
+const str = 'goodbye, seishun.'
+
+str.match(/good|goodbye/g) // good
+```
