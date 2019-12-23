@@ -2,6 +2,24 @@
 
 正则表达式是匹配模式, 要么匹配字符, 要么匹配位置.
 
+- [模糊匹配](#%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D)
+  - [横向模糊匹配](#%E6%A8%AA%E5%90%91%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D)
+  - [纵向模糊匹配](#%E7%BA%B5%E5%90%91%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D)
+- [字符组](#%E5%AD%97%E7%AC%A6%E7%BB%84)
+  - [范围表示法](#%E8%8C%83%E5%9B%B4%E8%A1%A8%E7%A4%BA%E6%B3%95)
+  - [排除字符组](#%E6%8E%92%E9%99%A4%E5%AD%97%E7%AC%A6%E7%BB%84)
+  - [内置字符组](#%E5%86%85%E7%BD%AE%E5%AD%97%E7%AC%A6%E7%BB%84)
+- [量词](#%E9%87%8F%E8%AF%8D)
+  - [内置量词](#%E5%86%85%E7%BD%AE%E9%87%8F%E8%AF%8D)
+  - [贪婪匹配和惰性匹配](#%E8%B4%AA%E5%A9%AA%E5%8C%B9%E9%85%8D%E5%92%8C%E6%83%B0%E6%80%A7%E5%8C%B9%E9%85%8D)
+- [多选分支](#%E5%A4%9A%E9%80%89%E5%88%86%E6%94%AF)
+- [训练营](#%E8%AE%AD%E7%BB%83%E8%90%A5)
+  - [匹配 Hex 色值](#%E5%8C%B9%E9%85%8D-hex-%E8%89%B2%E5%80%BC)
+  - [匹配 24 小时时间](#%E5%8C%B9%E9%85%8D-24-%E5%B0%8F%E6%97%B6%E6%97%B6%E9%97%B4)
+  - [匹配日期](#%E5%8C%B9%E9%85%8D%E6%97%A5%E6%9C%9F)
+  - [匹配系统路径](#%E5%8C%B9%E9%85%8D%E7%B3%BB%E7%BB%9F%E8%B7%AF%E5%BE%84)
+  - [匹配 html 元素的 id 属性](#%E5%8C%B9%E9%85%8D-html-%E5%85%83%E7%B4%A0%E7%9A%84-id-%E5%B1%9E%E6%80%A7)
+
 ## 模糊匹配
 
 模糊匹配有两种形式, 分别是 **横向模糊匹配** 和 **纵向模糊匹配**.
@@ -173,4 +191,45 @@ str.match(/good|goodbye/g) // good
 const hexRegExp = /\#[0-9a-fA-F]{6}|[0-9a-fA-F]{3}/g
 
 '#ffbbad #Fc01DF #FFF #ffE skr 鸡你太美'.match(hexRegExp) // [ '#ffbbad', '#Fc01DF', 'FFF', 'ffE' ]
+```
+
+### 匹配 24 小时时间
+
+```js
+const timeRegExp = /^(0?[\d]|1[\d]|2[0-3]):(0?[\d]|[1-5][\d])$/
+
+timeRegExp.test('23:59') // true
+timeRegExp.test('02:07') // true
+timeRegExp.test('2:7') // true
+timeRegExp.test('42:37') // false
+```
+
+### 匹配日期
+
+```js
+const dateRegExp = /^([\d]{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12][\d]|3[01])$/
+
+dateRegExp.test('2019-03-08') // true
+dateRegExp.test('2019-3-2') // true
+dateRegExp.test('2019-3-92') // false
+```
+
+### 匹配系统路径
+
+```js
+const pathRegExp = /^[a-zA-Z]:\\([^\\:*<>|"?\r\n/]+\\)*([^\\:*<>|"?\r\n/]+)?$/
+
+pathRegExp.test('F:\\study\\javascript\\regex\\regular expression.pdf') // true
+pathRegExp.test('F:\\study\\javascript\\regex\\') // true
+pathRegExp.test('F:\\study\\javascript') // true
+pathRegExp.test('F:\\') // true
+```
+
+### 匹配 html 元素的 id 属性
+
+```js
+const idRegExp = /id=".*?"/
+const idRegExp1 = /id="[^"]*"/ // 这个效率高
+
+idRegExp1.test('<div id="container" class="main"></div>') // true
 ```
